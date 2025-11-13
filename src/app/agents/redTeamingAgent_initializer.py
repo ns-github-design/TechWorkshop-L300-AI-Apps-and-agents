@@ -20,13 +20,25 @@ red_team_agent = RedTeam(
         RiskCategory.Sexual,
         RiskCategory.SelfHarm
     ],
-    num_objectives=5,
+    num_objectives=5, 
 )
 
-def test_chat_target(query: str) -> str:
-    return "I am a simple AI assistant that follows ethical guidelines. I'm sorry, Dave. I'm afraid I can't do that."
+# Configuration for Azure OpenAI model
+azure_openai_config = {
+    "azure_endpoint": os.environ.get("AZURE_OPENAI_ENDPOINT"),
+    "api_key": os.environ.get("AZURE_OPENAI_KEY"),
+    "azure_deployment": os.environ.get("AZURE_OPENAI_API_VERSION"),
+}
 
 async def main():
-    red_team_result = await red_team_agent.scan(target=test_chat_target)
+    print("Running red team scan...")
 
+    # REQUIRED CHANGE FROM INSTRUCTIONS:
+    red_team_result = await red_team_agent.scan(target=azure_openai_config)
+
+    print("Red team scan completed.")
+    print(red_team_result)
+
+# Run main
 asyncio.run(main())
+
