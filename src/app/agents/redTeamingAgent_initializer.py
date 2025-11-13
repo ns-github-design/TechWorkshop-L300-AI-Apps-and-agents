@@ -23,18 +23,20 @@ red_team_agent = RedTeam(
     num_objectives=5, 
 )
 
-# Configuration for Azure OpenAI model
-azure_openai_config = {
-    "azure_endpoint": os.environ.get("AZURE_OPENAI_ENDPOINT"),
-    "api_key": os.environ.get("AZURE_OPENAI_KEY"),
-    "azure_deployment": os.environ.get("AZURE_OPENAI_API_VERSION"),
-}
+chat_target = OpenAIChatTarget(
+    model_name=os.environ.get("gpt_deployment"),
+    endpoint=os.environ.get("gpt_endpoint"),
+    api_key=os.environ.get("gpt_api_key"),
+    api_version=os.environ.get("gpt_api_version"),
+) 
+
 
 async def main():
     print("Running red team scan...")
 
     # REQUIRED CHANGE FROM INSTRUCTIONS:
-    red_team_result = await red_team_agent.scan(target=azure_openai_config)
+    red_team_result = await red_team_agent.scan(target=chat_target)
+
 
     print("Red team scan completed.")
     print(red_team_result)
