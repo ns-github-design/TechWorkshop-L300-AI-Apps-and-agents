@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-customer-loyalty-agent:
+  run-interior-design-agent:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -41,4 +41,4 @@ jobs:
 
       - name: Run customer loyalty agent initializer
         run: |
-          python src/app/agents/customerLoyaltyAgent_initializer.py
+          python src/app/agents/interiorDesignAgent_initializer.py
