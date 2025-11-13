@@ -11,17 +11,23 @@ load_dotenv()
 azure_ai_project = os.getenv("AZURE_AI_AGENT_ENDPOINT")
 
 # Instantiate your AI Red Teaming Agent
+# red_team_agent = RedTeam(
+#     azure_ai_project=azure_ai_project,
+#     credential=DefaultAzureCredential(),
+#     risk_categories=[
+#         RiskCategory.Violence,
+#         RiskCategory.HateUnfairness,
+#         RiskCategory.Sexual,
+#         RiskCategory.SelfHarm
+#     ],
+#     num_objectives=5, 
+# )
 red_team_agent = RedTeam(
     azure_ai_project=azure_ai_project,
     credential=DefaultAzureCredential(),
-    risk_categories=[
-        RiskCategory.Violence,
-        RiskCategory.HateUnfairness,
-        RiskCategory.Sexual,
-        RiskCategory.SelfHarm
-    ],
-    num_objectives=5, 
+    custom_attack_seed_prompts="data/custom_attack_prompts.json",
 )
+
 
 chat_target = OpenAIChatTarget(
     model_name=os.environ.get("gpt_deployment"),
